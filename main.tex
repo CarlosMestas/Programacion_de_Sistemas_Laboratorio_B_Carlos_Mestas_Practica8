@@ -408,8 +408,171 @@ Ahora el otro proceso que queda ahora esta con el $\%100$ del uso del CPU.
 
 Observamos que no podemos reanudar ni pausar el proceso porque fue eliminado anteriormente.
 
+\clearpage
+\newpage
 
+\section{Estudia el uso que se hace de la CPU, con $mpstat$, y el uso de memoria, con
+$vmstat$, que están haciendo en este momento los procesos en ejecución. Para que
+el sistema tenga tareas a realizar y acceso al disco al mismo tiempo, ejecuta la
+siguiente orden:}
 
+\begin{lstlisting}[language=bash,frame=single,style=CStyle]
+find / -type f -exec cat {} > /dev/null \;
+\end{lstlisting}
+
+Instalamos la herramienta $systat$:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.65\textwidth]{images/screenB01.jpg}
+    \caption{Proceso de instalación}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.65\textwidth]{images/screenB02.jpg}
+    \caption{Instalación finalizada}
+\end{figure}
+
+\clearpage
+\newpage
+
+Mpstat y vmstat antes:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.65\textwidth]{images/screenB04.jpg}
+    \caption{Mpstat y vmstat antes}
+\end{figure}
+
+Mpstat y vmstat luego:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.65\textwidth]{images/screenB06.jpg}
+    \caption{Mpstat y vmstat luego}
+\end{figure}
+
+Se puede observar un cambio tanto en el uso del CPU y de la memoria un cambio luego de ejecutar ese comando, como por ejemplo:
+\begin{itemize}
+    \item Se observa una menor cantidad de memoria libre.
+    \item $\%sys$ que nos muestra un cambio del porcentaje de la utilización del CPU durante la ejecución a nivel kernel.
+    \item $\%iowait$ que nos muestra el porcentaje de tiempo que la CPU estuvieron inactivas durante las cuales el sistema tuvo uno solicitud de E/S de disco pendiente.
+\end{itemize}
+
+\clearpage
+\newpage
+
+\section{Prueba las opciones de $ulimit$. Ten en cuenta que una vez establecido un límite
+con $ulimit$ no es posible establecer un nuevo límite mejor, para cambiar a un valor
+mejor es necesario finalizar ese intérprete de órdenes. Recuerda que los valores
+establecidos son por intérprete de órdenes.}
+
+\begin{itemize}
+    \item Limita el número de ficheros abiertos a 2. A continuación ejecuta la orden “ls”. ¿Qué está sucediendo?
+\end{itemize}
+Limita la cantidad de ficheros abiertos a 2, por ello no nos permite entrar a ver los ficheros.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/screenB07.jpg}
+    \caption{Ejecuciones}
+\end{figure}
+
+\begin{itemize}
+    \item Limita el tamaño del fichero core a 2K.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/screenB08.jpg}
+    \caption{Ejecuciones}
+\end{figure}
+
+\clearpage
+\newpage
+
+\begin{itemize}
+    \item ¿Qué podemos hacer para que tengan efecto siempre sobre cierto
+usuario? (Pista: ficheros profile).
+\end{itemize}
+
+Podemos escribir un script en .profile del usuario que nosotros queramos limitar el número de procesos que pueda tener abiertos con la orden $ulimit$.
+
+\section{Ordenes: $at$, $atq$, $atrm$. (Para poder recibir un correo cuando una orden
+programada con $at$ se ejecute es necesario que esté en ejecución el demonio sendmail)}
+
+\begin{itemize}
+    \item Si el demonio $atd$ no está en ejecución, lánzalo para poder hacer este
+ejercicio.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/screenB09.jpg}
+    \caption{Instalación del servicio}
+\end{figure}
+
+Como se obseva el sistema operativo no cuenta con dicho servicio, por ello procedemos a instalarlo.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/screenB10.jpg}
+    \caption{Activamos el servicio}
+\end{figure}
+
+\clearpage
+\newpage
+
+\begin{itemize}
+    \item Programa con la orden at un “ls /” dentro de unos minutos.
+Comprueba cómo te avisa de que la orden ha sido ejecutada.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.65\textwidth]{images/screenB11.jpg}
+    \caption{Programación de la orden}
+\end{figure}
+
+\begin{itemize}
+    \item Programa con la orden at un “ls /tmp > \$HOME/salidatmp” dentro de
+unos minutos. Comprueba cómo te avisa de que la orden ha sido
+ejecutada.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.65\textwidth]{images/screenB12.jpg}
+    \caption{Programación de la orden}
+\end{figure}
+
+\clearpage
+\newpage
+
+\begin{itemize}
+    \item Utiliza la orden $atq$ para averiguar que hay en la cola y $atrm$ para
+eliminar trabajos que hayan sido encolados.
+\end{itemize}
+
+Como no tenemos nada en la cola, creamos ordenes para poder observar el comportamiento de los comandos.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/screenB13.jpg}
+    \caption{Ejecución comando $atq$ y $atrm~5$}
+\end{figure}
+
+\section{Con la orden $free$ averigua el estado de la memoria
+principal y de intercambio del sistema en este momento.}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/screenB14.jpg}
+    \caption{Ejecución comando $free$}
+\end{figure}
+
+Muestra la cantidad de $total$ de memoria instalada, $usado$ la cantidad de memoria utilizada y $libre$ la cantidad de memoria no utilizada.
 
 \end{document}
 
